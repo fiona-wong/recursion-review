@@ -22,6 +22,23 @@ var stringifyJSON = function(obj) {
     return '[' + result.join(',') + ']';
   }
 
+  if (typeof obj === 'object') {
+    
+    var str = '';
+    var arr = Object.keys(obj);
+  
+    for (var i = 0; i < arr.length; i++) {
+      if (typeof obj[arr[i]] === 'function' || obj[arr[i]] === undefined) {
+        continue;
+      } else if (i === arr.length - 1) {
+        str += stringifyJSON(arr[i]) + ':' +  stringifyJSON(obj[arr[i]]);
+      } else {
+        str += stringifyJSON(arr[i]) + ':' +  stringifyJSON(obj[arr[i]]) + ',';
+      }
+    }
+    return '{' + str + '}';
+  }
+
   //arrays/objects seperately
    
 
